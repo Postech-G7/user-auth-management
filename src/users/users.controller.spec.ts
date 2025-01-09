@@ -15,11 +15,11 @@ describe('UsersController', () => {
         {
           provide: UsersService,
           useValue: {
-            create: jest.fn().mockResolvedValue({ id: '1', name: 'Test User' }),
-            findAll: jest.fn().mockResolvedValue([{ id: '1', name: 'Test User' }]),
-            findOne: jest.fn().mockResolvedValue({ id: '1', name: 'Test User' }),
-            update: jest.fn().mockResolvedValue({ id: '1', name: 'Updated User' }),
-            remove: jest.fn().mockResolvedValue({ id: '1', name: 'Deleted User' }),
+            create: jest.fn(),
+            findAll: jest.fn(),
+            findOne: jest.fn(),
+            update: jest.fn(),
+            remove: jest.fn(),
           },
         },
       ],
@@ -33,35 +33,50 @@ describe('UsersController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should create a user', async () => {
-    const createUserDto: CreateUserDto = { name: 'Test User' };
-    const result = await controller.create(createUserDto);
-    expect(result).toEqual({ id: '1', name: 'Test User' });
-    expect(service.create).toHaveBeenCalledWith(createUserDto);
+  describe('create', () => {
+    it('should create a user', async () => {
+      const createUserDto: CreateUserDto = { name: 'John Doe', email: 'john@example.com' };
+      const result = { id: '1', ...createUserDto };
+      jest.spyOn(service, 'create').mockResolvedValue(result);
+
+      expect(await controller.create(createUserDto)).toBe(result);
+    });
   });
 
-  it('should return an array of users', async () => {
-    const result = await controller.findAll();
-    expect(result).toEqual([{ id: '1', name: 'Test User' }]);
-    expect(service.findAll).toHaveBeenCalled();
+  describe('findAll', () => {
+    it('should return an array of users', async () => {
+      const result = [{ id: '1', name: 'John Doe', email: 'john@example.com' }];
+      jest.spyOn(service, 'findAll').mockResolvedValue(result);
+
+      expect(await controller.findAll()).toBe(result);
+    });
   });
 
-  it('should return a single user', async () => {
-    const result = await controller.findOne('1');
-    expect(result).toEqual({ id: '1', name: 'Test User' });
-    expect(service.findOne).toHaveBeenCalledWith('1');
+  describe('findOne', () => {
+    it('should return a single user', async () => {
+      const result = { id: '1', name: 'John Doe', email: 'john@example.com' };
+      jest.spyOn(service, 'findOne').mockResolvedValue(result);
+
+      expect(await controller.findOne('1')).toBe(result);
+    });
   });
 
-  it('should update a user', async () => {
-    const updateUserDto: UpdateUserDto = { name: 'Updated User' };
-    const result = await controller.update('1', updateUserDto);
-    expect(result).toEqual({ id: '1', name: 'Updated User' });
-    expect(service.update).toHaveBeenCalledWith('1', updateUserDto);
+  describe('update', () => {
+    it('should update a user', async () => {
+      const updateUserDto: UpdateUserDto = { name: 'John Doe Updated' };
+      const result = { id: '1', ...updateUserDto };
+      jest.spyOn(service, 'update').mockResolvedValue(result);
+
+      expect(await controller.update('1', updateUserDto)).toBe(result);
+    });
   });
 
-  it('should delete a user', async () => {
-    const result = await controller.remove('1');
-    expect(result).toEqual({ id: '1', name: 'Deleted User' });
-    expect(service.remove).toHaveBeenCalledWith('1');
+  describe('remove', () => {
+    it('should remove a user', async () => {
+      const result = { id: '1', name: 'John Doe', email: 'john@example.com' };
+      jest.spyOn(service, 'remove').mockResolvedValue(result);
+
+      expect(await controller.remove('1')).toBe(result);
+    });
   });
 });

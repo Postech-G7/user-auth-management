@@ -15,7 +15,7 @@ export class UsersService {
   
   async create(createUserDto: CreateUserDto) {
     const user = await this.UserModel.create(createUserDto);
-    return user.save();
+    return user;
   }
 
   async findAll() {
@@ -29,7 +29,7 @@ export class UsersService {
   }
   
   update(id: string, updateUserDto: UpdateUserDto) {
-    return this.UserModel.findByIdAndUpdate(id, updateUserDto);
+    return this.UserModel.findByIdAndUpdate(id, updateUserDto, { new: true });
   }
 
   remove(id: string) {
