@@ -5,7 +5,9 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.useStaticAssets(join(process.cwd(), 'coverage/lcov-report'));
+  app.useStaticAssets(join(process.cwd(), 'coverage/lcov-report'), {
+    prefix: '/coverage',
+  });
   await app.listen(process.env.PORT ?? 3000);
   console.log(`Application running at ${await app.getUrl()}`);
 }
