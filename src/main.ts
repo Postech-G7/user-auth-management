@@ -8,7 +8,7 @@ async function bootstrap() {
   app.useStaticAssets(join(process.cwd(), 'coverage/lcov-report'), {
     prefix: '/coverage',
   });
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 4000);
   console.log(`Application running at ${await app.getUrl()}`);
 }
 bootstrap();
