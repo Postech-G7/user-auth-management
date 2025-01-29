@@ -24,7 +24,7 @@ export class AuthService {
     });
     await user.save();
 
-    const token = await this.jwtService.sign({ id: user.id },
+    const token = await this.jwtService.sign({ id: user.id, email: user.email },
       {
         secret: this.configService.get<string>('JWT_SECRET'),
         expiresIn: this.configService.get<string | number>('JWT_EXPIRES'),
