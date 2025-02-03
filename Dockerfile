@@ -1,20 +1,21 @@
-# Use an official Node.js 14 image as a base
-FROM node:20.18.0
-
-# Set the working directory to /app
+FROM node:20
 WORKDIR /app
 
-# Copy the package*.json files to the working directory
+# Install dependencies
 COPY package*.json ./
-
-# Install the dependencies
 RUN npm install
 
-# Copy the application code to the working directory
+# Copy source code
 COPY . .
 
-# Expose the port that the app will use
-EXPOSE 3000
+# Build the application
+RUN npm run build
 
-# Run the command to start the app when the container launches
-CMD ["npm", "start"]
+# Set environment variables
+ENV PORT=8080
+ENV GCP_PROJECT_ID=light-ratio-447800-d5
+
+EXPOSE 8080
+
+# Use production mode
+CMD ["npm", "run", "start:prod"]

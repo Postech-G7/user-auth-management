@@ -17,7 +17,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "deploy": "gcloud run deploy user-auth-management --image gcr.io/light-ratio-447800-d5/user-auth-management --region us-central1 --allow-unauthenticated"
+
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
