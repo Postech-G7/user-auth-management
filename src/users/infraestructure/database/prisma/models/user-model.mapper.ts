@@ -18,4 +18,14 @@ export class UserModelMapper {
       throw new ValidationError('Entity not loaded');
     }
   }
+
+  static toPrisma(entity: UserEntity) {
+    const { name, email, password, createdAt } = entity.toJson();
+    return {
+      name,
+      email,
+      password,
+      createdAt,
+    };
+  }
 }

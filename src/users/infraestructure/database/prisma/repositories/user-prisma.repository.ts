@@ -85,16 +85,16 @@ export class UserPrismaRepository implements UserRepository.Repository {
 
   async insert(entity: UserEntity): Promise<void> {
     await this.prismaService.user.create({
-      data: entity.toJson(),
+      data: UserModelMapper.toPrisma(entity),
     });
   }
 
   async update(entity: UserEntity): Promise<void> {
     await this._get(entity._id);
     await this.prismaService.user.update({
-      data: entity.toJson(),
+      data: UserModelMapper.toPrisma(entity),
       where: {
-        id: entity._id,
+        id: parseInt(entity._id),
       },
     });
   }
@@ -111,7 +111,7 @@ export class UserPrismaRepository implements UserRepository.Repository {
   async delete(id: string): Promise<void> {
     await this._get(id);
     await this.prismaService.user.delete({
-      where: { id },
+      where: { id: parseInt(id) },
     });
   }
 
@@ -119,7 +119,7 @@ export class UserPrismaRepository implements UserRepository.Repository {
     try {
       const user = await this.prismaService.user.findUnique({
         where: {
-          id,
+          id: parseInt(id),
         },
       });
       return UserModelMapper.toEntity(user);

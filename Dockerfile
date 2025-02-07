@@ -1,5 +1,5 @@
 # Usa a imagem oficial do Node.js
-FROM node:18
+FROM node:20
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
@@ -10,14 +10,17 @@ COPY package.json package-lock.json ./
 # Instala as dependências de produção
 RUN npm ci --omit=dev
 
+# Copy Prisma schema
+COPY prisma ./prisma
+
+# Generate Prisma client
+RUN npx prisma generate
+
 # Copia todo o código para dentro do container
 COPY . .
 
 # Garante que o `dist/` seja criado corretamente antes de executar a aplicação
 RUN npm run build && ls -la /app/dist/
-
-# Gera os binários corretos do Prisma para Linux
-RUN npm run prisma:generate
 
 # Define variáveis de ambiente
 ENV NODE_ENV=production
