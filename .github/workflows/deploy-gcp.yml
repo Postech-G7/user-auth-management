@@ -75,6 +75,8 @@ jobs:
             --set-secrets GOOGLE_CLIENT_ID=projects/470771286195/secrets/GOOGLE_CLIENT_ID:latest \
             --set-secrets GOOGLE_CLIENT_SECRET=projects/470771286195/secrets/GOOGLE_CLIENT_SECRET:latest \
             --set-secrets GOOGLE_REFRESH_TOKEN=projects/470771286195/secrets/GOOGLE_REFRESH_TOKEN:latest \
+            --set-env-vars NODE_ENV=production \
+            --set-env-vars NODE_TLS_REJECT_UNAUTHORIZED=0 \
             --region us-central1 \
             --allow-unauthenticated \
             --memory 512Mi \
