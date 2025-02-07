@@ -47,7 +47,8 @@
     "prisma:migrate:test": "npx dotenv-cli -e .env.test -- npx prisma migrate dev --schema ./src/shared/infraestructure/database/prisma/schema.prisma",
     "prisma:generate:development": "npx dotenv-cli -e .env.development -- npx prisma generate --schema ./src/shared/infraestructure/database/prisma/schema.prisma",
     "prisma:migrate:development": "npx dotenv-cli -e .env.development -- npx prisma migrate dev --schema ./src/shared/infraestructure/database/prisma/schema.prisma",
-    "prisma:migrate:reset:development": "npx dotenv-cli -e .env.development -- npx prisma migrate reset --schema ./src/shared/infraestructure/database/prisma/schema.prisma"
+    "prisma:migrate:reset:development": "npx dotenv-cli -e .env.development -- npx prisma migrate reset --schema ./src/shared/infraestructure/database/prisma/schema.prisma",
+    "prisma:generate": "npx prisma generate --schema ./src/shared/infraestructure/database/prisma/schema.prisma"
   },
   "dependencies": {
     "@fastify/static": "^7.0.4",
