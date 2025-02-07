@@ -49,6 +49,9 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_EXPIRES_IN: ${{ secrets.JWT_EXPIRES_IN }}
+          GCLOUD_STORAGE_BUCKET: ${{ secrets.GCLOUD_STORAGE_BUCKET }}
+          GCLOUD_PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
+          GCLOUD_KEY_FILENAME: ${{ secrets.GCLOUD_KEY_FILENAME }}
         run: |
           gcloud run deploy user-auth-management \
             --image gcr.io/light-ratio-447800-d5/user-auth-management \
@@ -57,4 +60,7 @@ jobs:
             --allow-unauthenticated \
             --set-env-vars DATABASE_URL=$DATABASE_URL \
             --set-env-vars JWT_SECRET=$JWT_SECRET \
-            --set-env-vars JWT_EXPIRES_IN=$JWT_EXPIRES_IN
+            --set-env-vars JWT_EXPIRES_IN=$JWT_EXPIRES_IN \
+            --set-env-vars GCLOUD_STORAGE_BUCKET=$GCLOUD_STORAGE_BUCKET \
+            --set-env-vars GCLOUD_PROJECT_ID=$GCLOUD_PROJECT_ID \
+            --set-env-vars GCLOUD_KEY_FILENAME=$GCLOUD_KEY_FILENAME
