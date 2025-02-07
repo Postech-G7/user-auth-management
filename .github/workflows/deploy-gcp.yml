@@ -62,12 +62,7 @@ jobs:
           # Save the service account key to a file
           echo '${{ secrets.GCLOUD_KEY_FILENAME }}' > /tmp/gcloud-key.json
           
-          # First, remove existing environment variables
-          gcloud run services update user-auth-management \
-            --clear-env-vars \
-            --region us-central1
-
-          # Then deploy with secrets
+          # Deploy with secrets and environment variables
           gcloud run deploy user-auth-management \
             --image gcr.io/light-ratio-447800-d5/user-auth-management \
             --platform managed \
