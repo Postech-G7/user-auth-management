@@ -55,10 +55,13 @@ jobs:
           # Save the service account key to a file
           echo '${{ secrets.GCLOUD_KEY_FILENAME }}' > /tmp/gcloud-key.json
           
+          # Deploy to Cloud Run
           gcloud run deploy user-auth-management \
             --image gcr.io/light-ratio-447800-d5/user-auth-management \
             --platform managed \
             --region us-central1 \
+            --port 8080 \
+            --timeout 300 \
             --allow-unauthenticated \
             --set-env-vars DATABASE_URL=$DATABASE_URL \
             --set-env-vars JWT_SECRET=$JWT_SECRET \
@@ -66,3 +69,9 @@ jobs:
             --set-env-vars GCLOUD_STORAGE_BUCKET=$GCLOUD_STORAGE_BUCKET \
             --set-env-vars GCLOUD_PROJECT_ID=$GCLOUD_PROJECT_ID \
             --set-env-vars GCLOUD_KEY_FILENAME=/tmp/gcloud-key.json
+          
+          # Set IAM policy binding for public access
+          gcloud run services add-iam-policy-binding user-auth-management \
+            --region=us-central1 \
+            --member=allUsers \
+            --role=roles/run.invoker
