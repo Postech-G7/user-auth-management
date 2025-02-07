@@ -1,0 +1,60 @@
+name: "Deploy GCP"
+
+on:
+  push:
+    branches:
+      - "main"
+  workflow_dispatch:
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.head_ref || github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Check out repository'
+        uses: 'actions/checkout@v4'
+
+      - name: 'Set up Node.js'
+        uses: 'actions/setup-node@v4'
+        with:
+          node-version: '20.x'
+
+      - name: 'Install dependencies'
+        run: 'npm install'
+
+      - name: 'Authenticate to GCP'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.CI_CD_GCP_POSTECH_GRUPO7 }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+        with:
+          project_id: 'light-ratio-447800-d5'
+
+      - name: 'Configure Docker for GCP'
+        run: 'gcloud auth configure-docker gcr.io'
+
+      - name: 'Build and push Docker image'
+        run: |
+          docker build -t gcr.io/light-ratio-447800-d5/user-auth-management .
+          docker push gcr.io/light-ratio-447800-d5/user-auth-management
+
+      - name: 'Deploy to Cloud Run'
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_EXPIRES_IN: ${{ secrets.JWT_EXPIRES_IN }}
+        run: |
+          gcloud run deploy user-auth-management \
+            --image gcr.io/light-ratio-447800-d5/user-auth-management \
+            --platform managed \
+            --region us-central1 \
+            --allow-unauthenticated \
+            --set-env-vars DATABASE_URL=$DATABASE_URL \
+            --set-env-vars JWT_SECRET=$JWT_SECRET \
+            --set-env-vars JWT_EXPIRES_IN=$JWT_EXPIRES_IN
