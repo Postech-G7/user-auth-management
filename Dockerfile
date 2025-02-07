@@ -21,14 +21,20 @@ COPY . .
 
 # Build the application
 RUN npm run build
-RUN ls -la /app/dist/
+
+# Create startup script
+RUN echo '#!/bin/sh\n\
+echo "DATABASE_URL: $DATABASE_URL"\n\
+npx prisma generate\n\
+npm run start:prod' > /app/start.sh && \
+chmod +x /app/start.sh
 
 # Environment variables
 ENV NODE_ENV=production
-ENV PORT=8080
+ENV PORT=3000
 
 # Expose port
-EXPOSE 8080
+EXPOSE 3000
 
-# Start the application
-CMD ["npm", "run", "start:prod"]
+# Start the application using the startup script
+CMD ["/app/start.sh"]

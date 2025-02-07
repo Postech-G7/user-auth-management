@@ -58,21 +58,21 @@ jobs:
           gcloud run deploy user-auth-management \
             --image gcr.io/light-ratio-447800-d5/user-auth-management \
             --platform managed \
-            --set-secrets=DATABASE_URL=projects/470771286195/secrets/DATABASE_URL:latest \
-            --set-secrets=GOOGLE_CLIENT_ID=projects/470771286195/secrets/GOOGLE_CLIENT_ID:latest \
-            --set-secrets=GOOGLE_CLIENT_SECRET=projects/470771286195/secrets/GOOGLE_CLIENT_SECRET:latest \
-            --set-secrets=GOOGLE_REFRESH_TOKEN=projects/470771286195/secrets/GOOGLE_REFRESH_TOKEN:latest \
-            --set-env-vars=PORT=3000 \
-            --set-env-vars=NODE_ENV=production \
-            --set-env-vars=NODE_TLS_REJECT_UNAUTHORIZED=0 \
+            --set-secrets DATABASE_URL=projects/470771286195/secrets/DATABASE_URL:latest \
+            --set-secrets GOOGLE_CLIENT_ID=projects/470771286195/secrets/GOOGLE_CLIENT_ID:latest \
+            --set-secrets GOOGLE_CLIENT_SECRET=projects/470771286195/secrets/GOOGLE_CLIENT_SECRET:latest \
+            --set-secrets GOOGLE_REFRESH_TOKEN=projects/470771286195/secrets/GOOGLE_REFRESH_TOKEN:latest \
+            --set-env-vars PORT=3000 \
+            --set-env-vars NODE_ENV=production \
+            --set-env-vars NODE_TLS_REJECT_UNAUTHORIZED=0 \
             --region us-central1 \
-            --allow-unauthenticated
+            --allow-unauthenticated \
+            --memory 512Mi \
+            --cpu 1 \
+            --min-instances 1
           
           # Set IAM policy binding for public access
           gcloud run services add-iam-policy-binding user-auth-management \
             --region=us-central1 \
             --member=allUsers \
             --role=roles/run.invoker
-
-
-            
