@@ -1,6 +1,6 @@
 import { ValidationError } from '../../../../../shared/domain/errors/validation-error';
 import { UserEntity } from '../../../../domain/entities/user.entity';
-import { User } from '@prisma/client';
+import type { User } from '@prisma/client';
 
 export class UserModelMapper {
   static toEntity(model: User) {
