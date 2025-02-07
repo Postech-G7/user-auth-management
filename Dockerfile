@@ -24,7 +24,6 @@ RUN npm run build
 
 # Create startup script
 RUN echo '#!/bin/sh\n\
-node scripts/generate-db-url.js > .env\n\
 echo "DATABASE_URL: $DATABASE_URL"\n\
 npx prisma generate\n\
 npm run start:prod' > /app/start.sh && \
