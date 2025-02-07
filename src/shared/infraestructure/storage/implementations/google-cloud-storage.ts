@@ -16,8 +16,8 @@ export class GoogleCloudStorageService implements StorageInterface {
     file: Express.Multer.File,
     destination: string
   ): Promise<string> {
-    if (!file || !file.buffer) {
-      throw new BadRequestError('Video file not provided');
+    if (!file) {
+      throw new BadRequestError('File not provided');
     }
 
     const bucket = cloudStorage.bucket;

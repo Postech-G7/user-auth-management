@@ -14,8 +14,8 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('FIAP - Fase 5: Hackaton')
-    .setDescription('Video Processing')
+    .setTitle('API')
+    .setDescription('User Authentication and Management API')
     .setVersion('1.0')
     .addBearerAuth({
       description: 'Informar token JWT para autorizar o acesso',
