@@ -58,11 +58,11 @@ jobs:
           gcloud run deploy user-auth-management \
             --image gcr.io/light-ratio-447800-d5/user-auth-management \
             --platform managed \
-            --set-secrets=DATABASE_URL=DATABASE_URL:latest \
-            --set-secrets=JWT_SECRET=JWT_SECRET:latest \
-            --set-secrets=JWT_EXPIRES_IN=JWT_EXPIRES_IN:latest \
-            --set-secrets=GCLOUD_STORAGE_BUCKET=GCLOUD_STORAGE_BUCKET:latest \
-            --set-secrets=GCLOUD_PROJECT_ID=GCLOUD_PROJECT_ID:latest \
+            --set-secrets=DATABASE_URL=projects/light-ratio-447800-d5/secrets/DATABASE_URL:latest \
+            --set-secrets=JWT_SECRET=projects/light-ratio-447800-d5/secrets/JWT_SECRET:latest \
+            --set-secrets=JWT_EXPIRES_IN=projects/light-ratio-447800-d5/secrets/JWT_EXPIRES_IN:latest \
+            --set-secrets=GCLOUD_STORAGE_BUCKET=projects/light-ratio-447800-d5/secrets/GCLOUD_STORAGE_BUCKET:latest \
+            --set-secrets=GCLOUD_PROJECT_ID=projects/light-ratio-447800-d5/secrets/GCLOUD_PROJECT_ID:latest \
             --region us-central1 \
             --allow-unauthenticated
           
