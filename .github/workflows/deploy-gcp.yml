@@ -34,6 +34,11 @@ jobs:
           echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
           echo "GOOGLE_REFRESH_TOKEN=${{ secrets.GOOGLE_REFRESH_TOKEN }}" >> .env  
 
+      - name: 'Run Prisma Migrations'
+        run: |
+          npx prisma generate
+          npx prisma migrate deploy
+
       - name: 'Authenticate to GCP'
         uses: 'google-github-actions/auth@v1'
         with:
@@ -70,9 +75,6 @@ jobs:
             --set-secrets GOOGLE_CLIENT_ID=projects/470771286195/secrets/GOOGLE_CLIENT_ID:latest \
             --set-secrets GOOGLE_CLIENT_SECRET=projects/470771286195/secrets/GOOGLE_CLIENT_SECRET:latest \
             --set-secrets GOOGLE_REFRESH_TOKEN=projects/470771286195/secrets/GOOGLE_REFRESH_TOKEN:latest \
-            --set-env-vars PORT=3000 \
-            --set-env-vars NODE_ENV=production \
-            --set-env-vars NODE_TLS_REJECT_UNAUTHORIZED=0 \
             --region us-central1 \
             --allow-unauthenticated \
             --memory 512Mi \
