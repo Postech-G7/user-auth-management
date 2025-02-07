@@ -16,6 +16,8 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "prisma:generate": "node scripts/generate-db-url.js > .env.tmp && DATABASE_URL=$(cat .env.tmp) prisma generate && rm .env.tmp",
+    "prisma:migrate": "node scripts/generate-db-url.js > .env.tmp && DATABASE_URL=$(cat .env.tmp) prisma migrate deploy && rm .env.tmp",
     "nest:generate:resource": "nest g resource <entity-name>",
     "nestjs:generate:module": "nest g module <entity-name>/infraestructure",
     "nestjs:generate:service": "nest g service <entity-name>/infraestructure",
@@ -47,11 +49,11 @@
     "prisma:migrate:test": "npx dotenv-cli -e .env.test -- npx prisma migrate dev --schema ./src/shared/infraestructure/database/prisma/schema.prisma",
     "prisma:generate:development": "npx dotenv-cli -e .env.development -- npx prisma generate --schema ./src/shared/infraestructure/database/prisma/schema.prisma",
     "prisma:migrate:development": "npx dotenv-cli -e .env.development -- npx prisma migrate dev --schema ./src/shared/infraestructure/database/prisma/schema.prisma",
-    "prisma:migrate:reset:development": "npx dotenv-cli -e .env.development -- npx prisma migrate reset --schema ./src/shared/infraestructure/database/prisma/schema.prisma",
-    "prisma:generate": "npx prisma generate --schema ./src/shared/infraestructure/database/prisma/schema.prisma"
+    "prisma:migrate:reset:development": "npx dotenv-cli -e .env.development -- npx prisma migrate reset --schema ./src/shared/infraestructure/database/prisma/schema.prisma"
   },
   "dependencies": {
     "@fastify/static": "^7.0.4",
+    "@google-cloud/secret-manager": "^5.6.0",
     "@google-cloud/storage": "^7.15.0",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.3.0",

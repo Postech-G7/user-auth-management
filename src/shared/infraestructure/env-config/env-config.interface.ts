@@ -1,6 +1,6 @@
 export interface EnvConfig {
   getAppPort(): number;
   getNodeEnv(): string;
-  getJwtSecret(): string;
+  getJwtSecret(): Promise<string>;
   getJwtExpiresInSeconds(): number;
 }
