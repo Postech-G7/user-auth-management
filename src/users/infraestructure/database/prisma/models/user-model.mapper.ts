@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ValidationError } from '../../../../../shared/domain/errors/validation-error';
 import { UserEntity } from '../../../../domain/entities/user.entity';
 import type { User } from '@prisma/client';
@@ -12,8 +13,8 @@ export class UserModelMapper {
       createdAt,
     };
     try {
-      return new UserEntity(entity, model.id);
-    } catch (error) {
+      return new UserEntity(entity, model.id.toString());
+    } catch (e) {
       throw new ValidationError('Entity not loaded');
     }
   }
