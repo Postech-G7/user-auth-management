@@ -1,14 +1,14 @@
-# Usa a imagem oficial do Node.js
-FROM node:20
+# Build stage
+FROM node:20 AS builder
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia apenas arquivos essenciais antes da instalação (otimiza o cache do Docker)
+# Copia apenas arquivos essenciais antes da instalação
 COPY package.json package-lock.json ./
 
-# Instala as dependências de produção
-RUN npm ci --omit=dev
+# Instala todas as dependências (incluindo devDependencies)
+RUN npm ci
 
 # Copy Prisma schema
 COPY prisma ./prisma
@@ -19,8 +19,26 @@ RUN npx prisma generate
 # Copia todo o código para dentro do container
 COPY . .
 
-# Garante que o `dist/` seja criado corretamente antes de executar a aplicação
-RUN npm run build && ls -la /app/dist/
+# Build the application
+RUN npm run build
+
+# Production stage
+FROM node:20-slim
+
+WORKDIR /app
+
+# Copia package files
+COPY package.json package-lock.json ./
+
+# Instala apenas as dependências de produção
+RUN npm ci --omit=dev
+
+# Copy Prisma schema and generate client
+COPY prisma ./prisma
+RUN npx prisma generate
+
+# Copia o código compilado da stage anterior
+COPY --from=builder /app/dist ./dist
 
 # Define variáveis de ambiente
 ENV NODE_ENV=production
