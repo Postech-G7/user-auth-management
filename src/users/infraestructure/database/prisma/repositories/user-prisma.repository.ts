@@ -16,11 +16,11 @@ export class UserPrismaRepository implements UserRepository.Repository {
         email,
       },
     });
-    
+
     if (!model) {
       throw new NotFoundError(`User not found for email provided ${email}`);
     }
-    
+
     return UserModelMapper.toEntity(model);
   }
 

@@ -8,7 +8,7 @@ export class UserModelMapper {
     console.log('Converting Prisma model to entity:', {
       id: model.id,
       email: model.email,
-      hasPassword: !!model.password
+      hasPassword: !!model.password,
     });
     const { name, email, password, createdAt } = model;
     const entity = {
