@@ -8,8 +8,8 @@ export abstract class Entity<Props = any> {
   public readonly props: Props;
 
   constructor(props: Props, id?: string) {
-    if (id && !isUUIDValidV4(id)) {
-      throw new Error('Invalid id');
+    if (id && !isUUIDValidV4(id) && isNaN(Number(id))) {
+      throw new Error('Invalid id: must be either a UUID v4 or a numeric ID');
     }
     this._id = id ?? randomUUID();
     this.props = props;

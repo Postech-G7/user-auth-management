@@ -5,6 +5,11 @@ import type { User } from '@prisma/client';
 
 export class UserModelMapper {
   static toEntity(model: User) {
+    console.log('Converting Prisma model to entity:', {
+      id: model.id,
+      email: model.email,
+      hasPassword: !!model.password
+    });
     const { name, email, password, createdAt } = model;
     const entity = {
       name,
@@ -15,7 +20,12 @@ export class UserModelMapper {
     try {
       return new UserEntity(entity, model.id.toString());
     } catch (e) {
-      throw new ValidationError('Entity not loaded');
+      if (e instanceof Error) {
+        console.error('Error creating UserEntity:', e);
+        throw new ValidationError(`Entity not loaded: ${e.message}`);
+      }
+      console.error('Unknown error creating UserEntity:', e);
+      throw new ValidationError('Entity not loaded: Unknown error');
     }
   }
 

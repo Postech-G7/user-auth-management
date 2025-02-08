@@ -11,16 +11,17 @@ export class UserPrismaRepository implements UserRepository.Repository {
   constructor(private prismaService: PrismaService) {}
 
   async findByEmail(email: string): Promise<UserEntity> {
-    try {
-      const model = await this.prismaService.user.findUnique({
-        where: {
-          email,
-        },
-      });
-      return UserModelMapper.toEntity(model);
-    } catch (error) {
+    const model = await this.prismaService.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    
+    if (!model) {
       throw new NotFoundError(`User not found for email provided ${email}`);
     }
+    
+    return UserModelMapper.toEntity(model);
   }
 
   async emailExists(email: string): Promise<void> {

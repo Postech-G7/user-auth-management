@@ -28,12 +28,16 @@ export namespace SigninUseCase {
         throw new BadRequestError('Input data not provided');
       }
 
+      console.log('Finding user by email:', email);
       const entity = await this.userRepository.findByEmail(email);
+      console.log('Found user:', { id: entity.id, email: entity.email });
 
+      console.log('Comparing passwords...');
       const isPasswordValid = await this.hashProvider.compareHash(
         password,
         entity.password
       );
+      console.log('Password comparison result:', isPasswordValid);
 
       if (!isPasswordValid) {
         throw new InvalidCredentialsError('Invalid password');
