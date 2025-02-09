@@ -8,7 +8,7 @@ import { UserModelMapper } from '../models/user-model.mapper';
 export class UserPrismaRepository implements UserRepository.Repository {
   sortableFields: string[] = ['name', 'createdAt'];
 
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
 
   async findByEmail(email: string): Promise<UserEntity> {
     const model = await this.prismaService.user.findUnique({
