@@ -1,11 +1,9 @@
-import {
-  ConflictError,
-  NotFoundError,
-} from '../../../../../shared/domain/errors';
 import { PrismaService } from '../../../../../shared/infraestructure/database/prisma/prisma.service';
 import { UserEntity } from '../../../../domain/entities/user.entity';
 import { UserPrismaRepository } from './user-prisma.repository';
 import { UserModelMapper } from '../models/user-model.mapper';
+import { NotFoundError } from 'src/shared/domain/errors/not-found-error';
+import { ConflictError } from 'src/shared/domain/errors/conflict-error';
 
 jest.mock('../models/user-model.mapper');
 

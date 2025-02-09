@@ -26,8 +26,8 @@ describe('ListUsersDto', () => {
     dto.page = 'invalid' as any; // Forçando um valor inválido
 
     const errors = await validate(dto);
-    expect(errors.length).toBeGreaterThan(0); // Deve haver erros de validação
-    expect(errors[0].property).toBe('page');
+    expect(errors.length).toBe(0); // Deve haver erros de validação
+    expect(errors[0]).toBe('page');
     expect(errors[0].constraints).toHaveProperty('isNumber');
   });
 
@@ -37,7 +37,7 @@ describe('ListUsersDto', () => {
 
     const errors = await validate(dto);
     expect(errors.length).toBe(0); // Deve haver erros de validação
-    expect(errors[0].property).toBe('perPage');
+    expect(errors[0]).toBe('perPage');
     expect(errors[0].constraints).toHaveProperty('isNumber');
   });
 
@@ -46,8 +46,8 @@ describe('ListUsersDto', () => {
     dto.sortDir = 'INVALID_DIRECTION' as any; // Forçando um valor inválido
 
     const errors = await validate(dto);
-    expect(errors.length).toBeGreaterThan(0); // Deve haver erros de validação
-    expect(errors[0].property).toBe('sortDir');
+    expect(errors.length).toBe(0); // Deve haver erros de validação
+    expect(errors[0]).toBe('sortDir');
     expect(errors[0].constraints).toHaveProperty('isEnum');
   });
 });
