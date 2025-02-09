@@ -1,12 +1,12 @@
-import { UserEntity } from '../../../../domain/entities/user.entity';
-import { UserModelMapper } from '../../../../../users/infraestructure/database/prisma/models/user-model.mapper.ts';
-import { ValidationError } from '../../../../../shared/domain/errors/validation-error';
+import { UserEntity } from '../../../../../domain/entities/user.entity';
+import { UserModelMapper } from '../../../../../users/infraestructure/database/prisma/models/user-model.mapper';
+import { ValidationError } from '../../../../../../shared/domain/errors/validation-error';
 
 describe('UserModelMapper', () => {
   describe('toEntity', () => {
     it('should map a valid Prisma model to a UserEntity', () => {
       const mockPrismaModel = {
-        id: 1,
+        id: '123',
         name: 'John Doe',
         email: 'john.doe@example.com',
         password: 'hashed-password',
@@ -16,7 +16,7 @@ describe('UserModelMapper', () => {
       const entity = UserModelMapper.toEntity(mockPrismaModel);
 
       expect(entity).toBeInstanceOf(UserEntity);
-      expect(entity.id).toBe('1');
+      expect(entity.id).toBe('123');
       expect(entity.name).toBe('John Doe');
       expect(entity.email).toBe('john.doe@example.com');
       expect(entity.password).toBe('hashed-password');
@@ -25,7 +25,7 @@ describe('UserModelMapper', () => {
 
     it('should throw ValidationError if the entity creation fails', () => {
       const invalidPrismaModel = {
-        id: 1,
+        id: '123',
         name: '', // Invalid name (empty string)
         email: 'invalid-email',
         password: 'hashed-password',

@@ -1,5 +1,5 @@
-import { UserEntity } from '../../../../../users/domain/entities/user.entity';
-import { userDataBuilder } from '../../../../../users/domain/testing/helpers/user-data-builder';
+import { UserEntity } from '../../../../domain/entities/user.entity';
+import { userDataBuilder } from '../../../../domain/testing/helpers/user-data-builder';
 import { UserOutputMapper } from '../../user-output';
 
 describe('UserOutputMapper unit tests', () => {
