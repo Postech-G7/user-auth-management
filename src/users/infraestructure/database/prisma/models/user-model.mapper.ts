@@ -1,5 +1,5 @@
+import { UserModelMapper } from '../models/user-model.mapper';
 import { UserEntity } from '../../../../domain/entities/user.entity';
-import { UserModelMapper } from '../../../../../users/infraestructure/database/prisma/models/user-model.mapper';
 import { ValidationError } from '../../../../../shared/domain/errors/validation-error';
 
 describe('UserModelMapper', () => {
