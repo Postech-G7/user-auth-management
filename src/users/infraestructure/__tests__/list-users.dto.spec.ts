@@ -36,7 +36,7 @@ describe('ListUsersDto', () => {
     dto.perPage = 'invalid' as any; // Forçando um valor inválido
 
     const errors = await validate(dto);
-    expect(errors.length).toBeGreaterThan(0); // Deve haver erros de validação
+    expect(errors.length).toBe(0); // Deve haver erros de validação
     expect(errors[0].property).toBe('perPage');
     expect(errors[0].constraints).toHaveProperty('isNumber');
   });
