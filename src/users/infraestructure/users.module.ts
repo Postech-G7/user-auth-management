@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { SignupUseCase } from '../application/usecases/signup-users.usecase';
-import { UserInMemoryRepository } from './database/in-memory/repositories/user-in-memory.repository';
+//import { UserInMemoryRepository } from './database/in-memory/repositories/user-in-memory.repository';
 import { HashProvider } from '../..//shared/application/providers/implementations/hash-provider';
 import { UserRepository } from '../domain/repositories/user.repository';
 import { SigninUseCase } from '../application/usecases/signin-users.usecase';
@@ -86,4 +86,4 @@ import { AuthModule } from '../../auth/infraestructure/auth.module';
     },
   ],
 })
-export class UsersModule {}
+export class UsersModule { }
