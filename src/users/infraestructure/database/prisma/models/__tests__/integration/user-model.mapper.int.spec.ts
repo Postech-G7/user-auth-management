@@ -2,7 +2,7 @@ import { PrismaClient, User } from '@prisma/client';
 import { UserModelMapper } from '../../user-model.mapper';
 import { ValidationError } from '../../../../../../../shared/domain/errors/validation-error';
 import { UserEntity } from '../../../../../../domain/entities/user.entity';
-import { setupPrismaTests } from '../../../../../../../shared/infraestructure/database/prisma/testing/setup-prisma-tests';
+//import { setupPrismaTests } from '../../../../../../../shared/infraestructure/database/prisma/testing/setup-prisma-tests';
 
 describe('UserModelMapper integration tests', () => {
   let prismaService: PrismaClient;

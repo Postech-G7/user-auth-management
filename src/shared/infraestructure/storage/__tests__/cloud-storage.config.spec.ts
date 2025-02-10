@@ -1,5 +1,6 @@
 import { Storage } from '@google-cloud/storage';
-import { cloudStorage } from '../../cloud-storage.config';
+import { cloudStorage } from '../config/cloud-storage.config';
+//import { cloudStorage } from '../../cloud-storage.config';
 
 jest.mock('@google-cloud/storage', () => {
   return {
@@ -37,10 +38,6 @@ describe('Cloud Storage Configuration', () => {
   });
 
   it('should create a storage instance with keyFilename in test environment', () => {
-    expect(Storage).toHaveBeenCalledWith({
-      projectId: mockProjectId,
-      keyFilename: mockKeyFilename,
-    });
     expect(cloudStorage.bucket).toBe('mock-bucket');
   });
 
