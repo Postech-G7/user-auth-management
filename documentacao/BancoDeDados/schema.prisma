@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum VideoStatus {
+  processing
+  completed
+  failed
+  retrieved
+}
+
+model User {
+  id        String   @id @db.Uuid
+  email     String   @unique @db.VarChar(255)
+  name      String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+
+  @@map("Users")
+}
+
+model Video {
+  id                String      @id @db.Uuid
+  title             String      @db.VarChar(255)
+  userEmail         String      @db.VarChar(255)
+  base64            String      @db.Text
+  userId            String      @db.Uuid
+  status            VideoStatus @default(processing)
+  createdAt         DateTime    @default(now())
+  processedVideoUrl String?     @db.Text
+
+  @@index([userId])
+  @@index([userEmail])
+  @@map("videos")
+}
