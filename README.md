@@ -28,64 +28,62 @@ Siga os passos abaixo para iniciar o projeto em sua máquina local:
 
 2. **Subir os Contêineres**:
    - Execute o seguinte comando para iniciar os contêineres em segundo plano:
-     ```bash
-     docker compose up -d
-     ```
+```bash
+    docker compose up -d
+```
    - Para verificar o status dos contêineres, use:
-     ```bash
-     docker compose ps
-     ```
+```bash
+    docker compose ps
+```
 
 3. **Instalação das Dependências**:
    - Instale as dependências do projeto com:
-     ```bash
-     npm install
-     ```
+```bash
+    npm install
+```
 
 4. **Geração do Prisma**:
    - Gere os clientes do Prisma para os ambientes de teste e desenvolvimento:
-     ```bash
-     npm run prisma:generate:test
-     npm run prisma:generate:development
-     ```
+```bash
+    npm run prisma:generate:test
+    npm run prisma:generate:development
+```
 
 5. **Migrações do Prisma**:
    - Execute as migrações para os ambientes de teste e desenvolvimento:
-     ```bash
-     npm run prisma:migrate:test
-     npm run prisma:migrate:development
-     ```
+```bash
+    npm run prisma:migrate:test
+    npm run prisma:migrate:development
+```
 
 6. **Iniciar o Servidor**:
    - Por fim, inicie o servidor em modo de desenvolvimento:
-     ```bash
-     npm run start:dev
-     ```
-
-
+```bash
+    npm run start:dev
+```
 
 ## Rodando os testes do Projeto USUÁRIO
 
 1. **Intalar as bibliotecas do projeto**: 
    - Instale as dependências do projeto com:
-     ```bash
-     npm install
-     ```
+```bash
+    npm install
+```
 
 2. **Rodar os testes unitários**:
    - Execute o seguinte comando para rodar os iniciar os contêineres em segundo plano:
-     ```bash
-     npm run test:unit
-     ```
+```bash
+    npm run test:unit
+```
    
 3. **Rodar os testes e2e**:
    - Execute o seguinte comando para rodar os iniciar os contêineres em segundo plano:
-     ```bash
-     npm run test:e2e
-     ```
+```bash
+    npm run test:e2e
+```
 
 4. **Rodar os testes para verificar a cobertura dos testes**:
    - Execute o seguinte comando para rodar os iniciar os contêineres em segundo plano:
-     ```bash
-     npm run test:cov
-     ```
+```bash
+    npm run test:cov
+```
